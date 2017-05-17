@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="鼾声检查分析报告(数据可视化未完成，检测事件文件)(sdcard/2017snore-test/*.txt)dbAudio,maxAudio,avgAudio,EK,amongTime(beginTime-finishTime)分贝,极值,均值,Ek=E1/E2(E1250-400Hz E2 600-750Hz) ,声音事件时间（取中值）" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="报告数据时间 10:25-7:30 " />
+    <!-- THIS IS JUST A PLACEHOLDER -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="结果： 无记录/鼾声检查正常/警告：xx/" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </ListView>
+
+<!--    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="感谢使用" />-->
+
+</LinearLayout>

@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Snore View</string>
+    <string name="title_home">鼾声分析</string>
+    <string name="title_home_inf">
+          鼾声分析简介:\n
+        您可以点击开始录音，应用将检测记录鼾声信息\n
+        您可以点击结束录音，应用将停止检测\n
+        您可以查看所有的记录，并可以查看记录的详情页\n
+
+        \n\n\n\n
+        鼾声检查分析报告(数据可视化未完成，保存了检测的事件)\n
+        数据文件位于(sdcard/2017snore-test/*.txt)\m\n
+        dbAudio,maxAudio,avgAudio,EK,amongTime(beginTime-finishTime)\n
+        分贝,极值,均值,Ek=E1/E2(E1250-400Hz E2 600-750Hz) ,声音事件时间（取中值）
+
+    </string>
+    <string name="title_start">正在录音</string>
+    <string name="title_start_inf">正在录音说明</string>
+    <string name="title_start_inf_fail">对不起，录音数据处理暂不支持当前设备(4000Hz)</string>
+    <string name="title_stop">结束录音</string>
+    <string name="title_stop_inf">本次录音已结束</string>
+    <string name="title_history">历史记录</string>
+    <string name="title_history_inf">历史记录说明</string>
+    <string name="title_history_no_inf">若要查看记录，请先进行录音</string>
+
+    <!-- 数据文件存储位置 -->
+    <string name="data_file_path">2017snore-test</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title_activity_record">RecordActivity</string>
+
+
+    <string name="action_settings">Settings</string>
+
+</resources>
