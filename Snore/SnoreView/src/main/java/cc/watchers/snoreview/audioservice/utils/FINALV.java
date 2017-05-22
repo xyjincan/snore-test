@@ -31,6 +31,6 @@ public class FINALV {
     public static int LOGLIMIT = 42;//记录鼾声分贝级别
 
     //public static final int QUIET_LEVEL  = 100;//定义“平静”声音的等级 100 means: 25ms(声音大于均值)  ,4000Hz 1000ms
-    public static final int QUIET_LEVEL  = 2000;//定义“平静”声音的等级 100 means: 25ms(声音大于均值)  ,4000Hz 1000ms
+    public static final int QUIET_LEVEL  = 1000;//定义“平静”声音的等级 100 means: 25ms(声音大于均值)  ,4000Hz 1000ms
 
 }

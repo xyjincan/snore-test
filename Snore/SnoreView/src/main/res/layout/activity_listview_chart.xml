@@ -5,24 +5,27 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/recordtittle"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center"
-        android:text="鼾声检查分析报告(数据可视化未完成，检测事件文件)(sdcard/2017snore-test/*.txt)dbAudio,maxAudio,avgAudio,EK,amongTime(beginTime-finishTime)分贝,极值,均值,Ek=E1/E2(E1250-400Hz E2 600-750Hz) ,声音事件时间（取中值）" />
+        android:text="鼾声检查分析报告" />
 
 
     <TextView
+        android:id="@+id/recordtime"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center"
-        android:text="报告数据时间 10:25-7:30 " />
+        android:text="报告数据时间-" />
     <!-- THIS IS JUST A PLACEHOLDER -->
 
     <TextView
+        android:id="@+id/recordinfmation"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center"
-        android:text="结果： 无记录/鼾声检查正常/警告：xx/" />
+        android:text="结果：无数据记录" />
 
     <View
         android:layout_width="match_parent"

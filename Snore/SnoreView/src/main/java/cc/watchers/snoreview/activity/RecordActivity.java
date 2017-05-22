@@ -25,8 +25,13 @@ import cc.watchers.snoreview.MainActivity;
 import cc.watchers.snoreview.R;
 import cc.watchers.snoreview.audioservice.utils.DEV;
 import cc.watchers.snoreview.audioservice.utils.TimeTools;
-import cc.watchers.snoreview.db.SnoreHistory;
+import cc.watchers.snoreview.db.model.SnoreHistory;
 import cc.watchers.snoreview.db.SnoreLog;
+
+
+/**
+ * 录音记录列表
+ */
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -145,8 +150,9 @@ public class RecordActivity extends AppCompatActivity {
             SnoreHistory snoreHistory = snoreList.get(position);
             Log.i(DEV.TAG,"position:"+position);
             Log.i(DEV.TAG,"record detail:"+snoreList.get(position));
-            Intent i = new Intent(context,ListViewBarChartActivity.class);context.startActivity(i);//查看分析详情
-            i.putExtra("detailSnoreHistoryId",snoreHistory.getId());
+            Intent i = new Intent(context,ListViewBarChartActivity.class);
+            i.putExtra(ListViewBarChartActivity.detailSnoreHistoryId,snoreHistory);
+            context.startActivity(i);//查看分析详情
         }
     }
 
@@ -154,7 +160,6 @@ public class RecordActivity extends AppCompatActivity {
 
         SnoreHistory snoreHistory = snoreList.get(position);
         Log.i(DEV.TAG,"position:"+position);
-        Log.i(DEV.TAG,"record remove:"+snoreHistory.getId());
         Log.i(DEV.TAG,"record remove of inf:" +snoreHistory.toString());
         SnoreLog.deleteFileLog(snoreHistory);
     }
@@ -162,7 +167,7 @@ public class RecordActivity extends AppCompatActivity {
     static public void afterDeleteRecord(){
         if(context!=null){
             if(snoreList.size()==0){
-                Intent i = new Intent(context,MainActivity.class);context.startActivity(i);//查看分析详情
+                Intent i = new Intent(context,MainActivity.class);context.startActivity(i);//无记录退回主界面
             }
         }
     }

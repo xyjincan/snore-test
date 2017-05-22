@@ -4,12 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import cc.watchers.snoreview.audioservice.utils.FileTools;
 
-/**
- * Created by jc on 2017/5/10.
- */
 
 public class DbUitls {
-
 
     public static SQLiteDatabase localLogDB() {
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(FileTools.getDataFilePath() + "data.db", null);

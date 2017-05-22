@@ -4,12 +4,15 @@ package cc.watchers.snoreview.activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -19,17 +22,31 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cc.watchers.snoreview.R;
+import cc.watchers.snoreview.audioservice.Show;
+import cc.watchers.snoreview.audioservice.SnoreLogService;
+import cc.watchers.snoreview.audioservice.utils.DEV;
+import cc.watchers.snoreview.audioservice.utils.TimeTools;
+import cc.watchers.snoreview.db.model.SnoreHistory;
 
 /**
  * 录音结果显示
  */
 public class ListViewBarChartActivity extends DemoBase {
+
+    public static final String detailSnoreHistoryId = "detailSnoreHistoryId";
+
+    Map<Integer,Show> map = null;
+    int hourStart = -1;
+
+    private TextView recordtittle;
+    private TextView recordtime;
+    private TextView recordinfmation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +56,31 @@ public class ListViewBarChartActivity extends DemoBase {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_listview_chart);
 
-        ListView lv = (ListView) findViewById(R.id.listView1);
-        ArrayList<BarData> list = new ArrayList<BarData>();
-        // 20 items
-        for (int i = 0; i < 20; i++) {
-            list.add(generateData(i + 1));
-        }
-        //
-        ChartDataAdapter cda = new ChartDataAdapter(getApplicationContext(), list);
-        lv.setAdapter(cda);
+        recordtime = (TextView) findViewById(R.id.recordtime);
+        recordinfmation = (TextView) findViewById(R.id.recordinfmation);
 
+        SnoreHistory snoreHistory =(SnoreHistory)getIntent().getSerializableExtra(detailSnoreHistoryId);
+        Log.i(DEV.TAG,"ListViewBarChartActivity snoreHistory:"+snoreHistory);
+        recordtime.setText(TimeTools.getTime2Time(snoreHistory.getCreateTime(),snoreHistory.getLastUpdate()));
+        countWarning=0;
+
+        map = SnoreLogService.readLogFile(snoreHistory);
+        if(map.size()>0){
+
+            hourStart = map.get(-1).hour;
+            Log.i(DEV.TAG,"ListViewBarChartActivity map size:"+map.size());
+
+            ListView lv = (ListView) findViewById(R.id.listView1);
+            ArrayList<BarData> list = new ArrayList<BarData>();
+            // 20 items
+            for (int i = 0; i < (map.size()-1)*2; i++) {
+                list.add(generateData(i + 1));
+            }
+            //
+            ChartDataAdapter cda = new ChartDataAdapter(getApplicationContext(), list);
+            lv.setAdapter(cda);
+            recordinfmation.setText(getWarningInf());
+        }
     }
 
     private class ChartDataAdapter extends ArrayAdapter<BarData> {
@@ -113,26 +145,69 @@ public class ListViewBarChartActivity extends DemoBase {
      */
     private BarData generateData(int cnt) {
 
-        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+        int item = 0;
+        if (cnt % 2 == 1) {
+            item = (cnt / 2 + 1);
+        }else {
+            item = ((cnt - 1) / 2 + 1);
+        }
+        int realHour = item+hourStart-1;
+        Show show = map.get(realHour);
+        Map<Integer, Integer> counts = null;
+        if (cnt % 2 == 1) {
+            counts = show.scounts;//鼾声数据
+        }else {
+            counts = show.pcounts;//呼吸暂停数据
+        }
 
+        int tsum=0;
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
         for (int i = 0; i < 6; i++) {
-            entries.add(new BarEntry((i+1)*10, (float) (Math.random() * 100) + 1));
+            int key = (i+1)*10;
+            Integer value = counts.get(key);
+            if (null==value){
+                value=0;
+            }else{
+                tsum+=value;
+            }
+            entries.add(new BarEntry(key, value));
         }
         BarDataSet d = null;
         if (cnt % 2 == 1) {
-            d = new BarDataSet(entries, "cnt" + cnt + "鼾声记录(每小时) " + (cnt / 2 + 1));
+            d = new BarDataSet(entries, "表" + cnt + " 鼾声记录" +realHour+"(小时中每十分钟)" );
+            d.setColors(VORDIPLOM_COLORS);
         } else {
-            d = new BarDataSet(entries, "cnt" + cnt + "呼吸暂停记录(每小时) " + ((cnt - 1) / 2 + 1));
+            countWarning+=tsum;
+            d = new BarDataSet(entries, "表" + cnt + " 呼吸暂停"+realHour +"(小时中每十分钟)" );
+            d.setColors(VORDIPLOM_COLORS_WARM);
         }
-
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
         d.setBarShadowColor(Color.rgb(203, 203, 203));
-
         ArrayList<IBarDataSet> sets = new ArrayList<IBarDataSet>();
         sets.add(d);
-
         BarData cd = new BarData(sets);
         cd.setBarWidth(0.9f);
         return cd;
     }
+
+    public void sendTest(String inf){
+        Toast toast = Toast.makeText(this,inf, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    private int countWarning=0;
+
+    private static final int[] VORDIPLOM_COLORS = {Color.rgb(140, 234, 255)};
+    private static final int[] VORDIPLOM_COLORS_WARM = {Color.rgb(255, 0, 0)};
+
+    String getWarningInf(){
+        return  "检测呼吸暂停次数："+countWarning;
+    }
+
 }
+
+
+/*            int[] VORDIPLOM_COLORS = {
+                    Color.rgb(138,43,226),Color.rgb(192, 255, 140), Color.rgb(255, 247, 140), Color.rgb(255, 208, 140),
+                    Color.rgb(140, 234, 255), Color.rgb(255, 140, 157)
+            };*/

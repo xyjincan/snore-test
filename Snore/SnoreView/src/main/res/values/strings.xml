@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Snore View</string>
+    <string name="app_name">录音睡眠分析</string>
     <string name="title_home">鼾声分析</string>
     <string name="title_home_inf">
           鼾声分析简介:\n
@@ -8,10 +8,10 @@
         您可以查看所有的记录，并可以查看记录的详情页\n
 
         \n\n\n\n
-        鼾声检查分析报告(数据可视化未完成，保存了检测的事件)\n
-        数据文件位于(sdcard/2017snore-test/*.txt)\m\n
+        鼾声检查分析报告\n
+        保存了检测的事件,数据文件位于(sdcard/2017snore-test/*.txt)\m\n
         dbAudio,maxAudio,avgAudio,EK,amongTime(beginTime-finishTime)\n
-        分贝,极值,均值,Ek=E1/E2(E1250-400Hz E2 600-750Hz) ,声音事件时间（取中值）
+        分贝,极值,均值,Ek=E1/E2(E1250-400Hz E2 600-750Hz) ,声音事件记录时间
 
     </string>
     <string name="title_start">正在录音</string>

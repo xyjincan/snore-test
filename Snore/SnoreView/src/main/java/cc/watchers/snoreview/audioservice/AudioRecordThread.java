@@ -11,10 +11,9 @@ import java.sql.Timestamp;
 import cc.watchers.snoreview.audioservice.utils.DEV;
 import cc.watchers.snoreview.audioservice.utils.FINALV;
 import cc.watchers.snoreview.audioservice.utils.FileTools;
-import cc.watchers.snoreview.audioservice.utils.ShortConnect;
 import cc.watchers.snoreview.db.SnoreLog;
 
-import static cc.watchers.snoreview.audioservice.utils.ShortConnect.snoreAudio;
+import static cc.watchers.snoreview.audioservice.ShortConnect.snoreAudio;
 
 public class AudioRecordThread implements Runnable {
 

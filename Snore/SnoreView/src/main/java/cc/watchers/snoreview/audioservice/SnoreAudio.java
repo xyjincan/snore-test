@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 import cc.watchers.snoreview.audioservice.utils.FFTDriver;
 import cc.watchers.snoreview.audioservice.utils.FINALV;
 import cc.watchers.snoreview.audioservice.utils.FileTools;
-import cc.watchers.snoreview.audioservice.utils.SoundCheck;
 import cc.watchers.snoreview.db.SnoreLog;
 
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cc.watchers.snoreview.audioservice.utils.FileTools;
+import cc.watchers.snoreview.db.model.SnoreHistory;
 
 /**
  * Created by jc on 2017/5/11.
@@ -54,6 +55,32 @@ public class SnoreLog {
 
         Cursor cursor = db.rawQuery("select id,rawfile,logfile,create_time,last_update" +
                 " from snore where status=1 order by id desc", null);
+        if(cursor == null){
+            return list;
+        }
+        while (cursor.moveToNext()) {
+            SnoreHistory obj = new SnoreHistory();
+            obj.setId(cursor.getString(cursor
+                    .getColumnIndex("id")));
+            obj.setRowFile(cursor.getString(cursor
+                    .getColumnIndex("rawfile")));
+            obj.setLogFile(cursor.getString(cursor
+                    .getColumnIndex("logfile")));
+            obj.setCreateTime(cursor.getString(cursor
+                    .getColumnIndex("create_time")));
+            obj.setLastUpdate(cursor.getString(cursor
+                    .getColumnIndex("last_update")));
+            list.add(obj);
+        }
+        return list;
+    }
+
+
+    public static List<SnoreHistory> getSnoreHistoryById(String id){
+
+        List<SnoreHistory> list = new ArrayList<SnoreHistory>();
+        Cursor cursor = db.rawQuery("select id,rawfile,logfile,create_time,last_update" +
+                " from snore where status=1 and id=? order by id desc",new String[]{id});
         if(cursor == null){
             return list;
         }

@@ -8,11 +8,7 @@ import android.support.v4.app.FragmentActivity;
 
 import cc.watchers.snoreview.R;
 
-/**
- * Baseclass of all Activities of the Demo Application.
- * 
- * @author Philipp Jahoda
- */
+
 public abstract class DemoBase extends FragmentActivity {
 
     protected Typeface mTfRegular;

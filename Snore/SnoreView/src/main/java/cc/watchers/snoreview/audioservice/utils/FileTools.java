@@ -58,7 +58,7 @@ public class FileTools {
 		// 当文件不存在或者不可读时
 		if ((!isFileExists(file)) || (!file.canRead())) {
 			System.out.println("file [" + filePath + "] is not exist or cannot read!!!");
-			return null;
+			return new String[0];
 		}
 
 		List<String> lines = new LinkedList<String>();

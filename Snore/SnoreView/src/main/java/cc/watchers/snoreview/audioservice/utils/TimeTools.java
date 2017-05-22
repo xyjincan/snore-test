@@ -21,7 +21,7 @@ public class TimeTools {
         return new Timestamp(beginTime.getTime()+t_index);
     }
 
-    static private Long getLongByViewDate(String viewdate) {
+    static public Long getLongByViewDate(String viewdate) {
 
         if(viewdate==null || viewdate.equals("null")){
             return null;

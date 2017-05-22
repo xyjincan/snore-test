@@ -16,10 +16,10 @@ import java.util.Date;
 import java.util.List;
 
 import cc.watchers.snoreview.activity.RecordActivity;
-import cc.watchers.snoreview.activity.Util;
+import cc.watchers.snoreview.audioservice.utils.Util;
 import cc.watchers.snoreview.audioservice.AudioRecordThread;
 import cc.watchers.snoreview.audioservice.utils.DEV;
-import cc.watchers.snoreview.db.SnoreHistory;
+import cc.watchers.snoreview.db.model.SnoreHistory;
 import cc.watchers.snoreview.db.SnoreLog;
 
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home: {
                     Log.i(DEV.TAG+"鼾声分析", "This is Verbose.");
-                    MainActivity.sendTest("设备录音缓存最小值（44100）:"+ AudioRecordThread.getDeviceAudioMinBufferSize());
+                    sendTest("设备录音缓存最小值（44100）:"+ AudioRecordThread.getDeviceAudioMinBufferSize());
                     mTextMessage.setText(R.string.title_home_inf);
                     return true;
                 }
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static void sendTest(String inf){
+    public void sendTest(String inf){
         if(context==null){
             Log.i(DEV.TAG, new Date() + "永不应该出现的日志 弹框失败"+MainActivity.context);
             return;
