@@ -10,7 +10,6 @@ public class DEV {
 
     public static String TAG = "xyjincan# ";
 
-
     public static void androidPrint(String inf){
         Log.i(DEV.TAG,inf);
     }

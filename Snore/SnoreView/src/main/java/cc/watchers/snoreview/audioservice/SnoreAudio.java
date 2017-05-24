@@ -10,6 +10,13 @@ import cc.watchers.snoreview.audioservice.utils.FileTools;
 import cc.watchers.snoreview.db.SnoreLog;
 
 
+/**
+ *
+ * 格式化的麦克风数据处理
+ *
+ */
+
+
 public class SnoreAudio {
 
     private static int LOGLIMIT = FINALV.LOGLIMIT;//记录鼾声分贝级别
@@ -108,7 +115,7 @@ public class SnoreAudio {
             }
             //LOG:dbAudio,maxAudio,avgAudio,EK,amongTime(beginTime-finishTime)
             if (SoundCheck.work(tempdatas)) {
-                FFTDriver.FFTView(tempdataf);
+                FFTDriver.FFTView(tempdataf);//更多信息，获取
                 StringBuilder loginf = new StringBuilder();
                 loginf.append((int) SoundCheck.dbAudio);
                 loginf.append(",");

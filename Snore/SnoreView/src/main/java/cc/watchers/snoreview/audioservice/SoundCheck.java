@@ -6,7 +6,7 @@ import cc.watchers.snoreview.audioservice.utils.DEV;
 import cc.watchers.snoreview.audioservice.utils.FINALV;
 
 /**
- * 声音检测
+ * 有声检测
  */
 
 public class SoundCheck {

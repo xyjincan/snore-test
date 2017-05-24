@@ -1,25 +1,38 @@
 <resources>
     <string name="app_name">录音睡眠分析</string>
-    <string name="title_home">鼾声分析</string>
+    <string name="title_home">分析说明</string>
+    <string name="title_audio">分析开关</string>
+    <string name="title_history">分析记录</string>
+
     <string name="title_home_inf">
-          鼾声分析简介:\n
-        您可以点击开始录音，应用将检测记录鼾声信息\n
-        您可以点击结束录音，应用将停止检测\n
-        您可以查看所有的记录，并可以查看记录的详情页\n
 
-        \n\n\n\n
+        鼾声分析简介:\n
+        您可以点击分析开关：\n
+            应用将检测记录鼾声信息或停止检测\n
+        您可以查看所有的分析记录：\n
+            并可以点击记录查看记录详情\n
+
+        \n\n
         鼾声检查分析报告\n
-        保存了检测的事件,数据文件位于(sdcard/2017snore-test/*.txt)\m\n
-        dbAudio,maxAudio,avgAudio,EK,amongTime(beginTime-finishTime)\n
-        分贝,极值,均值,Ek=E1/E2(E1250-400Hz E2 600-750Hz) ,声音事件记录时间
+        保存了检测的事件的信息\n
+        分析数据文件位于：\n
+        (sdcard/2017snore-test/*.txt)\n
+        内部内存卡2017snore-test目录下所有的txt文件\n\n
 
+        分析数据文件数据意义\n
+        dbAudio,maxAudio,avgAudio,EK,logTime\n
+        （Ek=E1/E2 (E1:250-400Hz E2:600-750Hz)\n
+        分贝,极值,均值,能量比,声音事件记录时间\n\n
+        方便的话：请把这些文件发送给我，改进程序\n
+        （xyjincan@163.com）\n
     </string>
+
     <string name="title_start">正在录音</string>
     <string name="title_start_inf">正在录音说明</string>
     <string name="title_start_inf_fail">对不起，录音数据处理暂不支持当前设备(4000Hz)</string>
     <string name="title_stop">结束录音</string>
     <string name="title_stop_inf">本次录音已结束</string>
-    <string name="title_history">历史记录</string>
+
     <string name="title_history_inf">历史记录说明</string>
     <string name="title_history_no_inf">若要查看记录，请先进行录音</string>
 

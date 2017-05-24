@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,12 +22,11 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.List;
 
-import cc.watchers.snoreview.MainActivity;
 import cc.watchers.snoreview.R;
 import cc.watchers.snoreview.audioservice.utils.DEV;
 import cc.watchers.snoreview.audioservice.utils.TimeTools;
-import cc.watchers.snoreview.db.model.SnoreHistory;
 import cc.watchers.snoreview.db.SnoreLog;
+import cc.watchers.snoreview.db.model.SnoreHistory;
 
 
 /**
@@ -40,6 +40,26 @@ public class RecordActivity extends AppCompatActivity {
 
     //private List<ApplicationInfo> mAppList;
     private AppAdapter mAdapter;
+
+
+    /**
+     * 监听Back键按下事件,方法2:
+     * 注意:
+     * 返回值表示:是否能完全处理该事件
+     * 在此处返回false,所以会继续传播该事件.
+     * 在具体项目中此处的返回值视情况而定.
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.i(DEV.TAG,"position:"+"按下了back键   onKeyDown()");
+            goMainExit();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +103,7 @@ public class RecordActivity extends AppCompatActivity {
                 return false;
             }
         });
+
 
     }
 
@@ -164,12 +185,22 @@ public class RecordActivity extends AppCompatActivity {
         SnoreLog.deleteFileLog(snoreHistory);
     }
 
-    static public void afterDeleteRecord(){
-        if(context!=null){
+
+    public void afterDeleteRecord(){
             if(snoreList.size()==0){
-                Intent i = new Intent(context,MainActivity.class);context.startActivity(i);//无记录退回主界面
+                goMainExit();
             }
-        }
     }
+
+    public void goMainExit(){
+        //Activity返回时传递数据，也是通过意图对象
+        Intent data = new Intent();
+        //把要传递的数据封装至意图对象中
+        //data.putExtra("name", "按下了back键");
+        //当前Activity销毁时，data这个意图就会传递给启动当前Activity的那个Activity
+        setResult(1, data);
+        finish();
+    }
+
 
 }
